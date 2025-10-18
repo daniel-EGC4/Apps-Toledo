@@ -1,10 +1,14 @@
-
+// useState es una suerte de super variable de React
+//un metodo para Settear una variable
+//un metodo para Gettear una variable
+//una variable con una suerte de alcance global
+//GRAN VENTAJA Es que modifica la GUI 
 import { useState } from 'react';
 import './App.css'
-import Abarajame from './assets/Abarajame.jpg'
-import Jeremy from './assets/Jeremy.jpg'
-import Killing from './assets/Killing-me-softly.jpg'
-import Selena from './assets/chico.jpg'
+import AchillesSong from './assets/AchillesSong.jpg'
+import UngloriusBastards from './assets/UngloriusBastards.jpg'
+import HTTYD from './assets/HTTYD.jpg'
+import PacificRim from './assets/PacificRim.jpg'
 import Caifanes from './assets/celula.jpg'
 import MGM from './assets/Electric-feel.jpg'
 
@@ -23,7 +27,7 @@ const rootContainer = {
 const MainHeader = () => {
   return (
     <header>
-      <h1>canciones para educar a la nueva generaci&oacute;n</h1>
+      <h1>Mis Favoritos</h1>
     </header>
 
   )
@@ -72,26 +76,52 @@ const NavBar = (props) => {
     </nav>
   );
 }
+
 const MainContent = (props) => {
+  if (!props.data) {
+    return (
+      <main>
+        <section>
+          <h2>Selecciona una canción</h2>
+          <p>Haz clic en una de la barra superior para ver los detalles.</p>
+        </section>
+      </main>
+    );
+  }
+
   return (
     <main>
       <section>
         <h2>{props.data.title}</h2>
-        <p>{props.data.artist}</p>
+        <p>Creador: {props.data.artist}</p>
       </section>
     </main>
   );
-}
+};
 const AsideContent = (props) => {
+  if (!props.data) {
+    return (
+      <aside>
+        <p>Selecciona una canción para ver la imagen.</p>
+      </aside>
+    );
+  }
+
   return (
     <aside>
-      <img src={props.data ? props.data.imageAsset : ''}
-        alt={props.data ? props.data.title : ''}
-        style={{ width: "200px", height: "200px", margin: "10px", borderRadius: "10px" }} />
-      <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Architecto a autem inventore, illum minus odit quas enim voluptas corporis sequi veritatis laborum ipsam possimus quo quasi. Reprehenderit beatae vitae cum.</p>
+      <img
+        src={props.data.imageAsset}
+        alt={props.data.title}
+        style={{
+          width: '200px',
+          height: '200px',
+          margin: '10px',
+          borderRadius: '10px',
+        }}
+      />
     </aside>
   );
-}
+};
 const FooterContent = () => {
   return (
     <footer>
@@ -101,7 +131,7 @@ const FooterContent = () => {
 };
 
 function App() {
-  const [Mdata, setMdata] = useState(0)
+  const [Mdata, setMdata] = useState()
   const handleClick = (data) => {
     setMdata(data);
     console.log("Cancion seleccionada: ", data);
@@ -109,39 +139,27 @@ function App() {
   const Mydata = [
     {
       id: 1,
-      title: "La canci&oacute;n de Aquiles",
+      title: "La canción de Aquiles",
       artist: "Madeleine Miller",
       imageAsset: AchillesSong,
     },
     {
       id: 2,
-      title: "Abarajame la bañera",
-      artist: "Illya Kuryaki & The Valderramas",
-      imageAsset: Abarajame,
+      title: "Bastardos sin gloria",
+      artist: "Tarantino",
+      imageAsset: UngloriusBastards,
     },
     {
       id: 3,
-      title: "Killing me softly",
-      artist: "Fugees",
-      imageAsset: Killing,
+      title: "Como entrenar a tu dragon",
+      artist: "Dean Deblois",
+      imageAsset: HTTYD,
     },
     {
       id: 4,
-      title: "El chico del apartamento 512",
-      artist: "Selena",
-      imageAsset: Selena,
-    },
-    {
-      id: 5,
-      title: "La celula que explota",
-      artist: "Caifanes",
-      imageAsset: Caifanes,
-    },
-    {
-      id: 6,
-      title: 'Electric Feel',
-      artist: 'MGMT',
-      imageAsset: MGM,
+      title: "Titanes del Pacifico",
+      artist: "Guillermo del Toro",
+      imageAsset: PacificRim,
     }
   ];
   return (
@@ -160,10 +178,8 @@ function App() {
       <div>
         <FooterContent />
       </div>
-
-      <p> Hola mundo de ReactJS</p><p> Daniel Eduardo Guerrero Centeno  </p>
     </div>
   )
 };
 
-export default App
+export default App;
